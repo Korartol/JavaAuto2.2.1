@@ -3,8 +3,7 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class FormFullPositiveTest {
 
@@ -17,7 +16,7 @@ public class FormFullPositiveTest {
                 .setValue("Санкт-Петербург");
 
         $x("//*[@data-test-id=\"date\"]//input")
-                .setValue("25.09.2022");
+                .hover();
 
         $x("//*[@data-test-id=\"name\"]//input")
                 .setValue("Иван Сусанин");
@@ -32,7 +31,7 @@ public class FormFullPositiveTest {
                 .click();
 
         $x("//*[contains(text(), \"Успешно!\")]")
-                .should(visible, Duration.ofSeconds(15));
+                .should(visible, Duration.ofSeconds(16));
 
         $x("//*[contains(text(), \"Встреча успешно забронирована на \")]")
                 .hover();
