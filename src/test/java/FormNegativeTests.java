@@ -2,12 +2,19 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class FormNegativeTests {
+    public String generateDate(int days) {
+        return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
+
+    String planningDate = generateDate(3);
 
     @Test
     void formNegativeTestCity() {
@@ -17,8 +24,10 @@ public class FormNegativeTests {
         $x("//*[@placeholder=\"Город\"]")
                 .setValue("Караганда");
 
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+
         $x("//*[@data-test-id=\"date\"]//input")
-                .hover();
+                .setValue(planningDate);
 
         $x("//*[@data-test-id=\"name\"]//input")
                 .setValue("Иван Сусанин");
@@ -39,20 +48,17 @@ public class FormNegativeTests {
     @Test
     void formNegativeTestDate() {
 
+        String planningDate = generateDate(2);
+
         open("http://localhost:9999");
 
         $x("//*[@placeholder=\"Город\"]")
                 .setValue("Москва");
 
-        $x("//*[@data-test-id=\"date\"]//input")
-                .sendKeys(Keys.CONTROL + "a");  // выделяем поле
-        $x("//*[@data-test-id=\"date\"]//input")
-                .sendKeys(Keys.COMMAND + "a");  // если mac
-        $x("//*[@data-test-id=\"date\"]//input")
-                .sendKeys(Keys.BACK_SPACE);  // очищаем поле
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
 
         $x("//*[@data-test-id=\"date\"]//input")
-                .setValue("14.09.2022");
+                .setValue(planningDate);
 
         $x("//*[@data-test-id=\"name\"]//input")
                 .setValue("Иван Сусанин");
@@ -105,8 +111,10 @@ public class FormNegativeTests {
         $x("//*[@placeholder=\"Город\"]")
                 .setValue("Москва");
 
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+
         $x("//*[@data-test-id=\"date\"]//input")
-                .hover();
+                .setValue(planningDate);
 
         $x("//*[@data-test-id=\"name\"]//input")
                 .setValue("Иван Сусанин");
@@ -132,8 +140,10 @@ public class FormNegativeTests {
         $x("//*[@placeholder=\"Город\"]")
                 .setValue("Москва");
 
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+
         $x("//*[@data-test-id=\"date\"]//input")
-                .hover();
+                .setValue(planningDate);
 
         $x("//*[@data-test-id=\"name\"]//input")
                 .setValue("Иван Сусанин");
